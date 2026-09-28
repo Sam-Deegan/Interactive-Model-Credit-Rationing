@@ -27,11 +27,11 @@
 ##   both sourced automatically by Shiny.
 ##
 ## Outputs:
-##   Nothing on start-up. Each figure carries Save PNG and Save PDF buttons
+##   Nothing on start-up. Each figure carries a Save PNG button
 ##   under it, which write that one figure through the toolkit's
 ##   T_02_03c_export_fn with no title and no legend: 1600x800 for a
 ##   full-width figure and 1440x720 for one panel of a pair, named
-##   credit-rationing-{stage}-{figure}.png (or .pdf).
+##   credit-rationing-{stage}-{figure}.png.
 ##
 ## Packages:
 ##   shiny, bslib, ggplot2.
@@ -1008,7 +1008,7 @@ B_03_16_figures_lst <- list(
 ###### B_03_17: Version ########################################################
 # Note: Semantic version, shown in the footer; CHANGELOG.md has the history.
 
-B_03_17_version_chr <- "1.0.5"
+B_03_17_version_chr <- "1.0.6"
 
 ###### B_03_18: Source Repository ##############################################
 # Note: The GitHub repo, linked from the footer.
@@ -1615,7 +1615,7 @@ E_01_02_sidebar_lst <- sidebar(
 
 ###### E_02_00: One Figure Card ################################################
 # Note: The toolkit's figure card (T_07_07f): header, plot held at 2:1,
-#   caption, and Save PNG / Save PDF under it. The title comes from B_03_16.
+#   caption, and Save PNG under it. The title comes from B_03_16.
 
 E_02_00_figcard_fn <- function(id) {
   T_07_07f_figcard_fn(id, B_03_16_figures_lst[[id]]$title)
@@ -2017,7 +2017,7 @@ F_01_01_app_server_fn <- function(input, output, session) {
         T_02_01c_draw_fn(p, title_width = 34)
       }, res = 96)
 
-      # T_07_07h registers <id>__png and <id>__pdf through
+      # T_07_07h registers <id>__png through
       #   T_02_03c_export_fn, named {app}-{stage}-{figure}
       T_07_07h_exports_fn(
         output, key,

@@ -10,7 +10,7 @@ ECON42240 Advanced Macroeconomics, University College Dublin.
 **Try it in the browser (nothing to install):**
 https://sam-deegan.com/toy-models/credit-rationing/
 
-Current version: **1.0.5** (see [CHANGELOG.md](CHANGELOG.md)). The version
+Current version: **1.0.6** (see [CHANGELOG.md](CHANGELOG.md)). The version
 is shown in the app footer; releases are tagged `vX.Y.Z`.
 
 ## What it does
@@ -29,7 +29,7 @@ unsecured loan, a wider spread at the same mean, a pool with a heavier
 tail, low demand that clears, high demand that is rationed, a fat-tailed
 loss book, a quiet sample). Every slider has a box beside it for an exact
 value, readout tiles give the loan rate, the turning point, the excess
-demand and required capital, and each figure has Save PNG and Save PDF
+demand and required capital, and each figure has Save PNG
 buttons under it. The Equations, Notation and In Words tabs show the model
 as it stands at the chosen stage and flag what that stage added. The loan
 is `B = 100` throughout, so every amount reads as a figure per 100 lent.
