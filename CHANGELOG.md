@@ -1,0 +1,34 @@
+# Changelog
+
+All notable changes to this app. Versions follow [Semantic Versioning](https://semver.org/):
+MAJOR for a change to the model or its notation, MINOR for new features
+(a stage, a worked example, a figure), PATCH for fixes and wording.
+Each release is tagged in git as `vX.Y.Z` and shown in the app footer.
+
+## [1.0.0] - 2026-09-28
+
+First public release as a standalone repository.
+
+### Model
+- The Stiglitz and Weiss (1981) model as Whelan's MA Advanced
+  Macroeconomics part 12 teaches it: the pricing rule, the borrower's
+  convex and the bank's concave payoff, the cut-off type, the pool average
+  and the turning point r-bar.
+- Lognormal project returns with a common mean, a pool of types with a
+  safest project and a heavy right tail, and a loan supply curve that
+  follows the bank's expected return; all closed form or quadrature.
+- The Value at Risk cut point and the capital rule K = 3 x VaR, RWA = 37.5
+  x VaR, from part 13.
+
+### App
+- Four stages (pricing, who applies, the rationing equilibrium, capital and
+  the tail) that add one layer of the model at a time.
+- Nine worked examples in the main window, with a ghost of the loaded
+  example drawn behind the live sliders.
+- Six figures in 2:1 cards with Save PNG and Save PDF buttons, exported at
+  1600x800 or 1440x720 under {app}-{stage}-{figure} names.
+- Equations, Notation and In Words tabs that track the model at each stage,
+  readout tiles, and notes under the figures on the selection effect, the
+  backward bend and what Value at Risk does not measure.
+- A test suite (tests/verify_model.R) of 44 checks on the model's
+  properties, the displayed equations and the app's exports.
