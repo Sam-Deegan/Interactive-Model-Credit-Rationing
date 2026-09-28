@@ -1008,7 +1008,7 @@ B_03_16_figures_lst <- list(
 ###### B_03_17: Version ########################################################
 # Note: Semantic version, shown in the footer; CHANGELOG.md has the history.
 
-B_03_17_version_chr <- "1.0.6"
+B_03_17_version_chr <- "1.0.7"
 
 ###### B_03_18: Source Repository ##############################################
 # Note: The GitHub repo, linked from the footer.
@@ -2039,32 +2039,25 @@ F_01_01_app_server_fn <- function(input, output, session) {
       class = "narrative",
       tags$div(class = "nar-head", "Reading the Two Panels as One Sequence"),
       tags$p(HTML(paste(
-        "<strong>The step is the mechanism.</strong> With two types the",
-        "bank's expected return drops discontinuously at the rate where the",
-        "low-risk type withdraws. Nothing about the loans changed at that",
-        "rate: the applicants did."
+        "With two types the bank's expected return drops at the rate where",
+        "the safer type withdraws. Nothing about the loans changed at that",
+        "rate; the applicants did. With a continuum the safest types leave a",
+        "few at a time, so the drop becomes a turn at r&#772;, and no bank",
+        "posts a rate above it because doing so would lower what it earns."
       ))),
       tags$p(HTML(paste(
-        "<strong>The peak is the step smoothed.</strong> With a continuum",
-        "the safest types leave a few at a time, so the drop becomes a turn.",
-        "The rate at which it turns is r&#772;, and no bank posts a rate",
-        "above it, because doing so would lower what it earns. The interior",
-        "peak is an assumption of Stiglitz and Weiss (1981), not a theorem:",
-        "their rationing result holds when the return has an interior mode,",
-        "and this pool's heavy tail of risky types is what gives it one."
+        "The interior peak is an assumption of Stiglitz and Weiss (1981),",
+        "not a theorem. Their rationing result holds when the bank's return",
+        "has an interior mode, and here the pool's heavy tail of risky types",
+        "is what gives it one."
       ))),
       tags$p(HTML(paste(
-        "<strong>Deriving the cut-off is the examined step.</strong> A",
-        "Section C answer that states adverse selection without getting",
-        "&theta;&#770;(r) out of E[P] &gt; 0, and without dividing the pool",
-        "average by the share of types above it, has skipped the model."
-      ))),
-      tags$p(HTML(paste(
-        "<strong>The two payoffs are mirror images.</strong> The borrower",
-        "holds a convex claim on the project and the bank a concave one, and",
-        "state by state they add to the project return. That is why a",
-        "mean-preserving spread is good for one and bad for the other, and",
-        "it is worth putting the two side by side on the board."
+        "The borrower holds a convex claim on the project and the bank a",
+        "concave one, and state by state they add to the project return, so",
+        "a mean-preserving spread is good for one and bad for the other. A",
+        "Section C answer that asserts adverse selection without deriving",
+        "&theta;&#770;(r) from E[P] &gt; 0 and dividing the pool average by",
+        "the share of types above it has skipped the model."
       )))
     )
   })
@@ -2073,37 +2066,29 @@ F_01_01_app_server_fn <- function(input, output, session) {
     req(stage_num() >= 3)
     tags$div(
       class = "narrative",
-      tags$div(class = "nar-head",
-               "What the Backward Bend Does and Does Not Say"),
+      tags$div(class = "nar-head", "What the Backward Bend Says"),
       tags$p(HTML(paste(
-        "<strong>Rationing is the high-demand case, not a special",
-        "assumption.</strong> The bank is the same bank in both cases. Only",
-        "the level of demand differs: one curve meets supply below r&#772;",
-        "and the other does not."
+        "The bank is the same bank in both cases; only the level of demand",
+        "differs. One demand curve meets supply below r&#772; and the other",
+        "does not, so rationing is the high-demand case and not a separate",
+        "assumption."
       ))),
       tags$p(HTML(paste(
-        "<strong>The picture is a bit misleading, and Whelan says so.</strong>",
-        "A backward-bending supply curve suggests a market being cleared by",
-        "a price that happens to run out of room. There is no auctioneer",
-        "here: banks post the rate, and they stop at r&#772; because raising",
-        "it further lowers what they expect to earn. The curve is drawn",
-        "because it is what the literature draws."
+        "Whelan calls the picture a bit misleading, and it is. A",
+        "backward-bending supply curve suggests a price that runs out of",
+        "room, but there is no auctioneer: banks post the rate and stop at",
+        "r&#772; because raising it lowers what they expect to earn. The",
+        "refused applicants are not ones the bank has identified as bad. It",
+        "cannot identify them; they look exactly like the ones it served."
       ))),
       tags$p(HTML(paste(
-        "<strong>Who is refused.</strong> Not the applicants the bank has",
-        "identified as bad. It cannot identify them at all: the refused",
-        "borrowers are observationally identical to the ones it served."
-      ))),
-      tags$p(HTML(paste(
-        "<strong>Why a recession can tighten it.</strong> Whelan argues",
-        "that demand for credit may be high exactly when collateral is worth",
-        "less, and both can push toward the rationed case. In this model",
-        "lower collateral lowers the bank's expected return up to r&#772;,",
-        "and so its peak and the most banks will lend; lower the collateral",
-        "pledged and watch the supply curve fall away from the demand curves.",
-        "Stiglitz and Weiss (1981) show the opposite can also happen: raising",
-        "collateral can lower the bank's return, because it draws in",
-        "wealthier, less risk-averse borrowers with riskier projects."
+        "Whelan argues that demand for credit is high exactly when",
+        "collateral is worth less, so a recession pushes toward the rationed",
+        "case. Here lower collateral lowers the bank's expected return at",
+        "every rate up to r&#772;, and with it the most banks will lend.",
+        "Stiglitz and Weiss (1981) show the reverse can also happen: raising",
+        "collateral can lower the bank's return by drawing in wealthier, less",
+        "risk-averse borrowers with riskier projects."
       )))
     )
   })
@@ -2115,32 +2100,26 @@ F_01_01_app_server_fn <- function(input, output, session) {
       tags$div(class = "nar-head",
                "Provisions, Capital and What Is Not Measured"),
       tags$p(HTML(paste(
-        "<strong>Two different numbers do two different jobs.</strong> The",
-        "mean of the loss distribution is provisioned for: the bank writes",
-        "down part of the book each year in anticipation. Capital is held",
-        "against the tail beyond the cut point."
+        "Provisions cover the mean of the loss distribution: the bank writes",
+        "down part of the book each year in anticipation. Capital covers the",
+        "tail beyond the cut point. Value at Risk is that cut point, not the",
+        "size of the tail. The shaded region is one per cent of outcomes and",
+        "the method says nothing about how bad they are; the average loss",
+        "inside it is in the readouts above, and no rule uses it."
       ))),
       tags$p(HTML(paste(
-        "<strong>Value at Risk is the cut point, not the size of the",
-        "tail.</strong> The shaded region is one per cent of outcomes, and",
-        "the method says nothing at all about how bad they are. The average",
-        "loss inside that region is in the readouts above, and no rule uses",
-        "it."
+        "K = 3 &times; VaR and K &ge; 0.08 &times; RWA make risk-weighted",
+        "assets 37.5 times the modelled tail loss, so the bank's own model",
+        "sets the denominator of its own ratio. A lower Value at Risk is a",
+        "lower requirement, and the estimate depends on the sample the bank",
+        "chose."
       ))),
       tags$p(HTML(paste(
-        "<strong>The bank's own model sets the denominator of its own",
-        "ratio.</strong> K = 3 &times; VaR and K &ge; 0.08 &times; RWA give",
-        "risk-weighted assets of 37.5 times the modelled tail loss. A lower",
-        "Value at Risk is a lower requirement, and the estimate depends on",
-        "the sample the bank chose."
-      ))),
-      tags$p(HTML(paste(
-        "<strong>How it was gamed.</strong> Returns from 2005 to 2007 made",
-        "risk look low in 2008. Selling insurance against rare events shows",
-        "small steady gains and puts the payout outside the window",
-        "altogether, so it never enters the reported number. Lower the",
-        "fatness of the tail and watch required capital fall while the loan",
-        "book does not change at all."
+        "Returns from 2005 to 2007 made risk look low in 2008. Selling",
+        "insurance against rare events shows small steady gains and puts the",
+        "payout outside the window, so it never enters the reported number.",
+        "Lower the fatness of the tail and watch required capital fall while",
+        "the loan book does not change."
       )))
     )
   })
