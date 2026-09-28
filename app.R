@@ -1008,7 +1008,7 @@ B_03_16_figures_lst <- list(
 ###### B_03_17: Version ########################################################
 # Note: Semantic version, shown in the footer; CHANGELOG.md has the history.
 
-B_03_17_version_chr <- "1.0.1"
+B_03_17_version_chr <- "1.0.2"
 
 ###### B_03_18: Source Repository ##############################################
 # Note: The GitHub repo, linked from the footer.
@@ -1172,7 +1172,6 @@ D_01_01_spread_fn <- function(par, xlim, ref = NULL) {
     T_02_02_mark_x_fn(par$mu, expression(E * group("[", R, "]"))) +
     coord_cartesian(xlim = xlim, ylim = c(0, y_hi), expand = FALSE) +
     labs(
-      title = "A Mean-Preserving Spread",
       x = expression(bold("Project Return (" * R * ")")),
       y = expression(bold("Density (" * f * ")"))
     ) +
@@ -1228,8 +1227,6 @@ D_01_02_payoff_fn <- function(par, xlim, ref = NULL) {
     }) +
     coord_cartesian(xlim = xlim, ylim = c(y_lo, y_hi), expand = FALSE) +
     labs(
-      title = paste0("The Borrower's Payoff at r = ",
-                     T_02_06_pct_fn(r, 1)),
       x = expression(bold("Project Return (" * R * ")")),
       y = expression(bold("Payoff (" * P * ")"))
     ) +
@@ -1296,7 +1293,6 @@ D_02_01_twotype_fn <- function(par, xlim, ylim, ref = NULL) {
     }) +
     coord_cartesian(xlim = xlim, ylim = ylim, expand = FALSE) +
     labs(
-      title = "Two Borrower Types",
       x = expression(bold("Loan Rate (" * r * ")")),
       y = expression(bold("Return (" * rho * ")"))
     ) +
@@ -1358,11 +1354,6 @@ D_02_02_continuum_fn <- function(par, xlim, ylim, ref = NULL) {
     }) +
     coord_cartesian(xlim = xlim, ylim = ylim, expand = FALSE) +
     labs(
-      title = if (on_view) {
-        "A Continuum of Types"
-      } else {
-        "No Turning Point on This Axis"
-      },
       x = expression(bold("Loan Rate (" * r * ")")),
       y = expression(bold("Return (" * rho * ")"))
     ) +
@@ -1472,7 +1463,6 @@ D_03_01_market_fn <- function(par, ref = NULL) {
                       labels = D_00_04_pct_fn, breaks = seq(0, 1, 0.1)) +
     coord_cartesian(xlim = c(0, x_hi), ylim = c(0, y_hi), expand = FALSE) +
     labs(
-      title = "Rationed, or Not, Depending on Demand",
       # Both superscripts: bare L is the loss on the book at stage 4
       x = expression(bold("Loans (" * L^s * ", " * L^d * ")")),
       y = expression(bold("Loan Rate (" * r * ")"))
@@ -1532,8 +1522,6 @@ D_04_01_var_fn <- function(par, ref = NULL) {
                       expression(E * group("[", L, "]"), VaR)) +
     coord_cartesian(xlim = c(0, x_hi), ylim = c(0, y_hi), expand = FALSE) +
     labs(
-      title = paste0("The Value at Risk Loss Distribution: VaR = ",
-                     T_02_05_num_fn(v$var, 0)),
       x = expression(bold("Loss on the Book (" * L * ")")),
       y = expression(bold("Density (" * f(L) * ")"))
     ) +
