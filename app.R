@@ -1008,7 +1008,7 @@ B_03_16_figures_lst <- list(
 ###### B_03_17: Version ########################################################
 # Note: Semantic version, shown in the footer; CHANGELOG.md has the history.
 
-B_03_17_version_chr <- "1.0.4"
+B_03_17_version_chr <- "1.0.5"
 
 ###### B_03_18: Source Repository ##############################################
 # Note: The GitHub repo, linked from the footer.
