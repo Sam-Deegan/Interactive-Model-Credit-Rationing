@@ -11,11 +11,11 @@
 ##   From the repo root:
 ##     Rscript tests/verify_model.R
 ##   Exits 1 on any failure, so it can gate a deploy. Needs shiny, bslib,
-##   ggplot2 and htmltools; pdftools if installed.
+##   ggplot2 and htmltools.
 ##
 ## Inputs:
 ##   R/model.R, then R/toolkit.R and app.R for the checks on the app.
-##   Nothing is read from disk otherwise; PNGs and PDFs go to tempdir().
+##   Nothing is read from disk otherwise; PNGs go to tempdir().
 ##
 ## Outputs:
 ##   A PASS or FAIL line per check, and a summary.
@@ -58,7 +58,7 @@
 ##           at each, and every download handler writes a named PNG
 ##    40     series colours follow the house order
 ##    44-46  the UI renders, every plotOutput sits in a toolkit T_07_07f
-##           card, both of every card's handlers write at 2:1, and no label
+##           card, every card's PNG handler writes at 3:2, and no label
 ##           or header spells out a Greek letter
 
 #-------------------------------- Script Begin --------------------------------#
@@ -914,7 +914,7 @@ local({
 
 ###### H_11_05: Every Figure Sits in a Toolkit Card ############################
 # Note: Check 44. Every plotOutput in the rendered page sits inside a
-#   T_07_07f .fig-card with its 2:1 box and two export buttons.
+#   T_07_07f .fig-card with its 3:2 box and its Save PNG button.
 
 H_11_05_html_chr <- tryCatch(
   as.character(htmltools::renderTags(E_02_02_app_ui_lst)$html),
@@ -932,8 +932,8 @@ local({
     any(vapply(cards, function(cd) {
       grepl(sprintf('id="%s"', id), cd) &&
         grepl(sprintf('id="%s__png"', id), cd) &&
-        grepl(sprintf('id="%s__pdf"', id), cd) &&
-        grepl("fig-r21", cd)
+        grepl("fig-save", cd) &&
+        grepl("fig-r32", cd)
     }, TRUE))
   }, TRUE)
   H_01_05_check_fn(
@@ -943,9 +943,9 @@ local({
     sprintf("%d plot(s) in %d fig-card(s)", length(ids), length(cards)))
 })
 
-###### H_11_06: Every Card Has Working PNG and PDF Handlers ####################
-# Note: Check 45. Both handlers of every card are fired through the server;
-#   the PNG size is read off the file and the PDF page must be 2:1.
+###### H_11_06: Every Card Has a Working PNG Handler ###########################
+# Note: Check 45. The one handler of every card is fired through the server;
+#   the PNG size is read off the file and must be the 3:2 deck shape.
 
 local({
   res <- list()
@@ -956,21 +956,10 @@ local({
       session$setInputs(stage = as.character(fig$from))
       session$elapse(B_03_13_debounce_ms_int + 200L)
       png <- output[[paste0(key, "__png")]]
-      pdf <- output[[paste0(key, "__pdf")]]
-      head <- readBin(pdf, "raw", n = 5L)
-      # Page size read with pdftools where installed; otherwise only the
-      #   PDF header is checked
-      pdf_rat <- if (requireNamespace("pdftools", quietly = TRUE)) {
-        ps <- pdftools::pdf_pagesize(pdf)
-        ps$width[1] / ps$height[1]
-      } else 2
       res[[key]] <<- list(
         dim = H_09_02_pngdim_fn(png),
         png_ok = file.info(png)$size > 0,
-        pdf_ok = file.info(pdf)$size > 0 &&
-          identical(rawToChar(head), "%PDF-"),
-        pdf_rat = pdf_rat,
-        png_name = basename(png), pdf_name = basename(pdf))
+        png_name = basename(png))
     }
   })
   want <- lapply(names(res), function(k) {
@@ -978,11 +967,11 @@ local({
     c(s$width_px, s$height_px)
   })
   ok <- mapply(function(r, w) {
-    isTRUE(r$png_ok) && isTRUE(r$pdf_ok) && all(abs(r$dim - w) <= 1) &&
-      isTRUE(abs(r$pdf_rat - 2) < 0.01)
+    isTRUE(r$png_ok) && all(abs(r$dim - w) <= 1) &&
+      abs(r$dim[["width"]] / r$dim[["height"]] - 1.5) < 0.01
   }, res, want)
   H_01_05_check_fn(
-    "45 every card's PNG and PDF handlers write at the deck shape",
+    "45 every card's PNG handler writes at the deck shape",
     length(res) == length(B_03_16_figures_lst) && all(ok),
     paste(sprintf("%s %.0fx%.0f", names(res),
                   vapply(res, function(r) r$dim[["width"]], 0),

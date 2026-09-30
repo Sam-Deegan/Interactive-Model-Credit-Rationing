@@ -29,8 +29,8 @@
 ## Outputs:
 ##   Nothing on start-up. Each figure carries a Save PNG button
 ##   under it, which write that one figure through the toolkit's
-##   T_02_03c_export_fn with no title and no legend: 1600x800 for a
-##   full-width figure and 1440x720 for one panel of a pair, named
+##   T_02_03c_export_fn with no title and no legend: 1500x1000 for a
+##   full-width figure and 1440x960 for one panel of a pair, named
 ##   credit-rationing-{stage}-{figure}.png.
 ##
 ## Packages:
@@ -929,14 +929,14 @@ B_03_11_nota_cols_lst <- list(
 )
 
 ###### B_03_12: Figure Shapes ##################################################
-# Note: Export size of each figure shape, both 2:1 as T_02_03c_export_fn
+# Note: Export size of each figure shape, both 3:2 as T_02_03c_export_fn
 #   writes them: "pair" is one panel of a half-width pair, "wide" a
 #   full-width figure. "title_chr" is how many characters of title fit on
 #   one line of that canvas.
 
 B_03_12_shapes_lst <- list(
-  wide = list(width_px = 1600L, height_px = 800L, title_chr = 46L),
-  pair = list(width_px = 1440L, height_px = 720L, title_chr = 38L)
+  wide = list(width_px = 1500L, height_px = 1000L, title_chr = 44L),
+  pair = list(width_px = 1440L, height_px = 960L, title_chr = 38L)
 )
 
 ###### B_03_12a: The Floor on the Aspect Ratio #################################
@@ -1008,7 +1008,7 @@ B_03_16_figures_lst <- list(
 ###### B_03_17: Version ########################################################
 # Note: Semantic version, shown in the footer; CHANGELOG.md has the history.
 
-B_03_17_version_chr <- "1.0.7"
+B_03_17_version_chr <- "1.0.8"
 
 ###### B_03_18: Source Repository ##############################################
 # Note: The GitHub repo, linked from the footer.
@@ -1172,6 +1172,7 @@ D_01_01_spread_fn <- function(par, xlim, ref = NULL) {
     T_02_02_mark_x_fn(par$mu, expression(E * group("[", R, "]"))) +
     coord_cartesian(xlim = xlim, ylim = c(0, y_hi), expand = FALSE) +
     labs(
+      title = "A Mean-Preserving Spread",
       x = expression(bold("Project Return (" * R * ")")),
       y = expression(bold("Density (" * f * ")"))
     ) +
@@ -1227,6 +1228,8 @@ D_01_02_payoff_fn <- function(par, xlim, ref = NULL) {
     }) +
     coord_cartesian(xlim = xlim, ylim = c(y_lo, y_hi), expand = FALSE) +
     labs(
+      title = paste0("The Borrower's Payoff at r = ",
+                     T_02_06_pct_fn(r, 1)),
       x = expression(bold("Project Return (" * R * ")")),
       y = expression(bold("Payoff (" * P * ")"))
     ) +
@@ -1293,6 +1296,7 @@ D_02_01_twotype_fn <- function(par, xlim, ylim, ref = NULL) {
     }) +
     coord_cartesian(xlim = xlim, ylim = ylim, expand = FALSE) +
     labs(
+      title = "Two Borrower Types",
       x = expression(bold("Loan Rate (" * r * ")")),
       y = expression(bold("Return (" * rho * ")"))
     ) +
@@ -1354,6 +1358,11 @@ D_02_02_continuum_fn <- function(par, xlim, ylim, ref = NULL) {
     }) +
     coord_cartesian(xlim = xlim, ylim = ylim, expand = FALSE) +
     labs(
+      title = if (on_view) {
+        "A Continuum of Types"
+      } else {
+        "No Turning Point on This Axis"
+      },
       x = expression(bold("Loan Rate (" * r * ")")),
       y = expression(bold("Return (" * rho * ")"))
     ) +
@@ -1463,6 +1472,7 @@ D_03_01_market_fn <- function(par, ref = NULL) {
                       labels = D_00_04_pct_fn, breaks = seq(0, 1, 0.1)) +
     coord_cartesian(xlim = c(0, x_hi), ylim = c(0, y_hi), expand = FALSE) +
     labs(
+      title = "Rationed, or Not, Depending on Demand",
       # Both superscripts: bare L is the loss on the book at stage 4
       x = expression(bold("Loans (" * L^s * ", " * L^d * ")")),
       y = expression(bold("Loan Rate (" * r * ")"))
@@ -1522,6 +1532,8 @@ D_04_01_var_fn <- function(par, ref = NULL) {
                       expression(E * group("[", L, "]"), VaR)) +
     coord_cartesian(xlim = c(0, x_hi), ylim = c(0, y_hi), expand = FALSE) +
     labs(
+      title = paste0("The Value at Risk Loss Distribution: VaR = ",
+                     T_02_05_num_fn(v$var, 0)),
       x = expression(bold("Loss on the Book (" * L * ")")),
       y = expression(bold("Density (" * f(L) * ")"))
     ) +
@@ -1614,7 +1626,7 @@ E_01_02_sidebar_lst <- sidebar(
 #   this stage.
 
 ###### E_02_00: One Figure Card ################################################
-# Note: The toolkit's figure card (T_07_07f): header, plot held at 2:1,
+# Note: The toolkit's figure card (T_07_07f): header, plot held at 3:2,
 #   caption, and Save PNG under it. The title comes from B_03_16.
 
 E_02_00_figcard_fn <- function(id) {
